@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController , Platform, NavParams, LoadingController, ToastController, AlertController, Slides, App} from 'ionic-angular';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { NavController , Platform, NavParams, LoadingController, ToastController, AlertController, Slides, App, ViewController, ModalController} from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -16,6 +16,9 @@ import { HttpRequestProvider } from '../../providers/http-request/http-request';
 import { ListaPedidosPage } from '../lista-pedidos/lista-pedidos';
 import { ComboNuevoPage } from '../combonuevo/combonuevo';
 import { ListLocalesPage } from '../list-locales/list-locales';
+import { TimeInterval } from 'rxjs';
+import { TimeServiceProvider } from '../../providers/time-service/time-service';
+import { AvisoPage } from '../aviso/aviso';
 
 
 
@@ -23,7 +26,7 @@ import { ListLocalesPage } from '../list-locales/list-locales';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit{
   user: any = {};
   oneTime =true;
   public alertShown: boolean = false;
@@ -60,7 +63,9 @@ export class HomePage {
               public platform: Platform,
               public statusBar: StatusBar,
               public toastCtrl : ToastController,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public horarioProvider: TimeServiceProvider,
+              public modalCtrl: ModalController) {
                 this.cargarImagenes();  
     let loading = this.loadingCtrl .create({
       content: 'Cargando...'
@@ -106,6 +111,11 @@ export class HomePage {
   ionViewDidLeave(){
     //this.slides.stopAutoplay();
   }
+
+  ngOnInit(){
+    this.horarioProvider.init()
+  }
+
   async cargarImagenes() {
     try {
       let token = window.localStorage.getItem("userToken");
@@ -203,6 +213,8 @@ export class HomePage {
       console.log('Error: ', err.message);
     }
   }
+  
+
   async cargarOpcionImgs(id: string,array: any) {
     try {
       //let token = window.localStorage.getItem("userToken");
@@ -273,17 +285,54 @@ export class HomePage {
   
   ordenarPizza(event: Event){
     event.preventDefault;
-    this.navCtrl.push(CrearPizzaPage);
+    /*
+    let arrayTemp = this.horarioProvider.checkTime()
+    if(arrayTemp[0] != "OK!"){
+      //this.navCtrl.pop();
+      let modal = this.modalCtrl.create(AvisoPage, {
+        pagina : CrearPizzaPage,
+        message1 : arrayTemp[0],
+        message2 : arrayTemp[1], 
+      })
+      modal.present();
+    }else
+    */
+      this.navCtrl.push(CrearPizzaPage);
   }
 
   tradicionales(event: Event){
     event.preventDefault;
-    this.navCtrl.push(TradicionalesPage);
+    /*
+    let arrayTemp = this.horarioProvider.checkTime()
+    if(arrayTemp[0] != "OK!"){
+      //this.navCtrl.pop();
+      let modal = this.modalCtrl.create(AvisoPage, {
+        pagina : TradicionalesPage,
+        message1 : arrayTemp[0],
+        message2 : arrayTemp[1], 
+      })
+      modal.present();
+    }else
+    */
+      this.navCtrl.push(TradicionalesPage);
   }
 
   favoritas(event: Event){
     event.preventDefault;
-    this.navCtrl.push(FavoritasPage);
+    /*
+    let arrayTemp = this.horarioProvider.checkTime()
+    if(arrayTemp[0] != "OK!"){
+      //this.navCtrl.pop();
+      let modal = this.modalCtrl.create(AvisoPage, {
+        pagina : FavoritasPage,
+        message1 : arrayTemp[0],
+        message2 : arrayTemp[1], 
+      })
+      modal.present();
+      
+    }else
+    */
+      this.navCtrl.push(FavoritasPage);
   }
 
   combos(event: Event){

@@ -19,7 +19,9 @@ export class Constantes {
 
     //Urls
     public static API_URL = 'http://navi.pythonanywhere.com/rest/';
-	//public static API_URL = 'http://localhost:9988/rest/';
+    //public static API_URL = 'http://localhost:8000/rest/';
+    public static API_URL2 = 'http://127.0.0.1:8000/rest/'
+    public static HORARIO_URL = Constantes.API_URL2 + "horario"
     public static TAMANOS_URL = Constantes.API_URL  +"tamanos/";
     public static BANNER_URL = Constantes.API_URL  +"api/img/";
     public static OPCIONIMG_URL = Constantes.API_URL  +"api/img/";
@@ -182,5 +184,9 @@ export class Constantes {
 
     public static getTodasCoberturas(token : string ) {
         return this.LISTA_TODAS_COBERTURAS + "?TOKEN=" + token;
+    }
+
+    public static getHorario(token: string){
+        return this.HORARIO_URL + "?TOKEN=" + token;
     }
 }

@@ -57,6 +57,7 @@ import { ComboNuevoPage } from '../pages/combonuevo/combonuevo';
 import { PizzaComboNuevoPage } from '../pages/pizza-combonuevo/pizza-combonuevo';
 import { PizzaComboNuevoDosPage } from '../pages/pizza-combonuevoDos/pizza-combonuevoDos';
 import { tradicionalPopUpPage } from '../pages/tradicionalPopUp/tradicionalPopUp';
+import { AvisoPage } from '../pages/aviso/aviso';
 @NgModule({
   declarations: [
     HomePage,
@@ -113,7 +114,8 @@ import { tradicionalPopUpPage } from '../pages/tradicionalPopUp/tradicionalPopUp
     IngredientesPromoPage,
     DetallePromocionalPage,
     PromoMarViePage,
-    tradicionalPopUpPage
+    tradicionalPopUpPage,
+    AvisoPage,
   ],
   //bootstrap: [IonicApp],
   imports: [
@@ -176,6 +178,7 @@ import { tradicionalPopUpPage } from '../pages/tradicionalPopUp/tradicionalPopUp
     DetallePromocionalPage,
     PromoMarViePage,
     tradicionalPopUpPage,
+    AvisoPage,
   ],
 })
 export class SharedModule { }

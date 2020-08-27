@@ -9,6 +9,7 @@ import { ComboPage } from '../combo/combo';
 import { TradicionalesPage } from '../tradicionales/tradicionales';
 import { PizzaComboNuevoPage } from '../pizza-combonuevo/pizza-combonuevo';
 import { CombinacionesPage } from '../combinaciones/combinaciones';
+import { TimeServiceProvider } from '../../providers/time-service/time-service';
 
 @IonicPage()
 @Component({
@@ -22,6 +23,8 @@ export class DetallePromocionalPage {
   public combosTemp = [];
   public objetivo : string;
   public currentDate: Date;
+  public message1: string = "";
+  public message2: string = "";
   public weekdays = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
   constructor(
           public navCtrl: NavController,
@@ -33,7 +36,8 @@ export class DetallePromocionalPage {
           public platform: Platform,
           public events: Events,
           public toastCtrl: ToastController,
-          private viewCtrl : ViewController
+          private viewCtrl : ViewController,
+          //public horaChecker: TimeServiceProvider
   ) {
     this.currentDate= new Date();
     this.objetivo = this.navParams.get("objetivo");
@@ -48,8 +52,15 @@ export class DetallePromocionalPage {
   }
 
   ionViewDidLoad() {
+    /*
+    let arrayTemp = this.horaChecker.checkTime()
+    if(arrayTemp[0] !== "OK!"){
+      this.message1 = arrayTemp[0]
+      this.message2 = arrayTemp[1]
+    }
     let combo = this.navParams.get("combo");
-    console.log(combo);   
+    console.log(combo);
+    */   
   }
   getLocalCombosToPreview() {
     let loading = this.loadingCtrl .create({

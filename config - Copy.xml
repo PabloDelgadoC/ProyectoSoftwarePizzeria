@@ -141,8 +141,8 @@
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="5.13.0" />
     </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^8.5.0">
-        <variable name="REVERSED_CLIENT_ID" value="com.innovasystem.pizzeria" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="181588710227-7kki71sij3i9knfr52ll8bmac103aiaa.apps.googleusercontent.com" />
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.320424180530-q7cirh7otkfal6v6c5ci2vlr83d71goo" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="320424180530-q7cirh7otkfal6v6c5ci2vlr83d71goo.apps.googleusercontent.com" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
     </plugin>
     <engine name="browser" spec="5.0.4" />

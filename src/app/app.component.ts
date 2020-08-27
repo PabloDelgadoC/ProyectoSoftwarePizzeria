@@ -69,7 +69,6 @@ export class MyApp {
         this.storage.set('isFacebook',window.localStorage.getItem("isFacebook"));
         console.log( window.localStorage.getItem("userToken"))
         this.datosUsuario();
-        
           this.rootPage = HomePage;
       }else{
           this.rootPage = LoginPage;

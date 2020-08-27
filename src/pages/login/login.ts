@@ -13,6 +13,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Constantes } from '../../util/constantes';
 import {format} from "date-fns";
+import firebase from 'firebase';
+import { SecondFirebaseAppProvider } from '../../providers/second-firebase-app/second-firebase-app';
 
 @IonicPage()
 @Component({
@@ -33,6 +35,7 @@ export class LoginPage {
   public type = "password"; 
   passwordToggleIcon = 'eye';
   public showPass = false; 
+  userData: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -48,7 +51,9 @@ export class LoginPage {
               public splashScreen: SplashScreen,
               public platform: Platform,
               public statusBar: StatusBar,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public firebaseGoogle: SecondFirebaseAppProvider
+              ) {
 
     //   this.firebaseUser = this.afAuth.authState;
     this.menu.swipeEnable(false);
@@ -115,11 +120,44 @@ export class LoginPage {
      }
 
   loginGoogle(event) {
-    this.loader.present();
+    //this.loader.present();
+    console.log("i'm pressing")
     this.autenticarGoogle();
   }
 
   async autenticarGoogle() {
+    this.gplus.login({})
+    .then(res => {
+      this.userData = res
+      console.log("success: " + this.userData)
+      this.loader.present();
+    })
+    .catch(err => {this.userData = `Error ${JSON.stringify(err)}`
+      this.mostrarMensaje("Mensaje de Error","Error: " + err)
+    });
+    /*
+    try{
+    var googleUser = await this.gplus.login({
+      'webClientId': '320424180530-q7cirh7otkfal6v6c5ci2vlr83d71goo.apps.googleusercontent.com',
+      'offline': true,
+      'scopes': 'profile email'
+    }).then(res => {
+      this.userData = res
+      console.log("success: " + this.userData)
+      this.loader.present();
+    })
+    .catch(err => {this.userData = `Error ${JSON.stringify(err)}`
+      this.mostrarMensaje("Mensaje de Error","Error: " + err)
+        
+    });
+    console.log(googleUser)
+    
+    } catch (err) {
+      // this.loader.dismiss();
+      console.log("error");
+      console.log(err)
+    }
+    
     try {
       var googleUser = await this.gplus.login({
         'webClientId': '320424180530-q7cirh7otkfal6v6c5ci2vlr83d71goo.apps.googleusercontent.com',
@@ -139,7 +177,16 @@ export class LoginPage {
       console.log("error");
       console.log(err)
     }
+    */
   }
+
+  logoutGoogle() {
+    this.gplus.logout()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.error(err));
+    }
 
   loginSocialMedia(token, nombres, apellidos, correo, userId, imageUrl) {
     //this.loader.present();
