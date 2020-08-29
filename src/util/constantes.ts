@@ -58,6 +58,7 @@ export class Constantes {
     public static DETALLE_PEDIDO = Constantes.API_URL + "pedido/ver"
     public static LISTA_TODOS_LOCALES = Constantes.API_URL + "locales/info"
     public static LISTA_TODAS_COBERTURAS = Constantes.API_URL + "coordenadas/info"
+    public static OLVIDE_CONTRASENA = Constantes.API_URL2 + 'email';
 
 
     //metodos
@@ -190,5 +191,9 @@ export class Constantes {
 
     public static getHorario(token: string){
         return this.HORARIO_URL + "?TOKEN=" + token;
+    }
+
+    public static getForgotPassword(token: string) {
+        return this.OLVIDE_CONTRASENA;
     }
 }
