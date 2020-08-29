@@ -285,7 +285,7 @@ export class HomePage implements OnInit{
   
   ordenarPizza(event: Event){
     event.preventDefault;
-    /*
+    
     let arrayTemp = this.horarioProvider.checkTime()
     if(arrayTemp[0] != "OK!"){
       //this.navCtrl.pop();
@@ -296,13 +296,13 @@ export class HomePage implements OnInit{
       })
       modal.present();
     }else
-    */
+    
       this.navCtrl.push(CrearPizzaPage);
   }
 
   tradicionales(event: Event){
     event.preventDefault;
-    /*
+    
     let arrayTemp = this.horarioProvider.checkTime()
     if(arrayTemp[0] != "OK!"){
       //this.navCtrl.pop();
@@ -313,13 +313,13 @@ export class HomePage implements OnInit{
       })
       modal.present();
     }else
-    */
+    
       this.navCtrl.push(TradicionalesPage);
   }
 
   favoritas(event: Event){
     event.preventDefault;
-    /*
+    
     let arrayTemp = this.horarioProvider.checkTime()
     if(arrayTemp[0] != "OK!"){
       //this.navCtrl.pop();
@@ -331,7 +331,7 @@ export class HomePage implements OnInit{
       modal.present();
       
     }else
-    */
+    
       this.navCtrl.push(FavoritasPage);
   }
 

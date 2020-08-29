@@ -1,16 +1,16 @@
 {
     "android": {
         "debug": {
-            "keystore": "italiandeliexpress.keystore",
+            "keystore": "italiandeli.keystore",
             "storePassword": "italiandeli123",
-            "alias": "alias_name",
+            "alias": "italiandeli",
             "password" : "italiandeli123",
             "keystoreType": ""
         },
         "release": {
-            "keystore": "italiandeliexpress.keystore",
+            "keystore": "italiandeli.keystore",
             "storePassword": "italiandeli123",
-            "alias": "alias_name",
+            "alias": "italiandeli",
             "password" : "italiandeli123",
             "keystoreType": ""
         }

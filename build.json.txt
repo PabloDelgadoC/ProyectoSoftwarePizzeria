@@ -8,9 +8,9 @@
             "keystoreType": ""
         },
         "release": {
-            "keystore": "italiandeli.keystore",
+            "keystore": "italiandeliexpress.keystore",
             "storePassword": "italiandeli123",
-            "alias": "italiandeli",
+            "alias": "alias_name",
             "password" : "italiandeli123",
             "keystoreType": ""
         }

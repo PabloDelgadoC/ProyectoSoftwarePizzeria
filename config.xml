@@ -133,17 +133,17 @@
         <splash src="resources/windows/splash/Splash.png" target="SplashScreen" />
     </platform>
     <plugin name="cordova-plugin-ionic-webview" spec="^1.2.1" />
+    <plugin name="cordova-plugin-googleplus" spec="^8.5.0">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.597411026712-s22ddcskp52sff4k021pdj23s18qicq8" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="597411026712-fdevgl2jflm25lq7ne2vccpped7ss6ne.apps.googleusercontent.com" />
+        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
+    </plugin>
     <plugin name="cordova-plugin-facebook4" spec="^6.4.0">
         <variable name="APP_ID" value="230635621290029" />
         <variable name="APP_NAME" value="Italian Deli Express" />
         <variable name="ANDROID_SDK_VERSION" value="4.35.0" />
         <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="5.13.0" />
-    </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="^8.5.0">
-        <variable name="REVERSED_CLIENT_ID" value="com.innovasystem.pizzeria" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="181588710227-7kki71sij3i9knfr52ll8bmac103aiaa.apps.googleusercontent.com" />
-        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
     </plugin>
     <engine name="browser" spec="5.0.4" />
     <engine name="ios" spec="^4.5.5" />

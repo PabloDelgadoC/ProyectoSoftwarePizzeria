@@ -27,6 +27,7 @@ import { ListLocalesPage } from '../pages/list-locales/list-locales';
 import { ContactanosPage } from '../pages/contactanos/contactanos';
 import { ComboNuevoPage } from '../pages/combonuevo/combonuevo';
 import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 
 export interface MenuItem {
@@ -49,6 +50,7 @@ export class MyApp {
   appMenuItems: Array<MenuItem>;
   nombre : any;
   imagen : any;
+  plataforma: any;
 
   constructor( 
     public platform: Platform, 
@@ -61,15 +63,17 @@ export class MyApp {
     public alertCtrl : AlertController,
     public App : App,
     public storage: Storage,
-    public httpRequest: HttpRequestProvider) {
+    public httpRequest: HttpRequestProvider,
+    public gplus: GooglePlus) {
 
       if( window.localStorage.getItem("userToken") != null){
         this.storage.set('userToken', window.localStorage.getItem("userToken"));
         this.storage.set('email',window.localStorage.getItem("email"));
         this.storage.set('isFacebook',window.localStorage.getItem("isFacebook"));
+        this.storage.set('isGoogle',window.localStorage.getItem("isGoogle"));
         console.log( window.localStorage.getItem("userToken"))
         this.datosUsuario();
-          this.rootPage = HomePage;
+        this.rootPage = HomePage;
       }else{
           this.rootPage = LoginPage;
       }
@@ -204,22 +208,24 @@ export class MyApp {
   }
 
   logout() {
+
+    if(window.localStorage.getItem("isFacebook") == "True"){
+      this.fb.getLoginStatus().then((response: any)=> {
+        if (response.status === 'connected') {
+          this.fb.logout();  
+          console.log("salimos de facebook------------------------------------------------------------>")
+          console.log(this.fb.getLoginStatus());
+        } 
+      });
+      console.log("variable facebook----------------------------------------------------->");
+      console.log(this.fb.getLoginStatus());
+    }else if(window.localStorage.getItem("isGoogle") == "True"){
+        this.gplus.logout();
+        console.log("salimos de google------------------------------------------------------------>")
+    }
     window.localStorage.clear();
     this.imagen = 'assets/imgs/avatar.png';
     this.nombre = '';
-    this.fb.getLoginStatus().then((response: any)=> {
-      if (response.status === 'connected') {
-        this.fb.logout();  
-        console.log("salimos de facebook------------------------------------------------------------>")
-        console.log(this.fb.getLoginStatus());
-      } 
-    });
-    console.log("variable facebook----------------------------------------------------->");
-    console.log(this.fb.getLoginStatus());
-    /*if(window.localStorage.getItem("isFacebook") == "True"){
-      console.log("salimos de facebook------------------------------------------------------------>")
-      this.fb.logout();
-    }*/
     this.nav.setRoot(LoginPage);
   }
 

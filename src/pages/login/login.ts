@@ -23,7 +23,8 @@ import { SecondFirebaseAppProvider } from '../../providers/second-firebase-app/s
 })
 export class LoginPage {
 
-  apiUrl = 'http://navi.pythonanywhere.com/rest/';
+  //apiUrl = 'http://navi.pythonanywhere.com/rest/';
+  apiUrl = 'http://192.168.100.6:8000/rest/'
   public alertShown: boolean = false;
   dataUsuario = { "CORREO": "", "CONTRASENA": "" };
   loginfb = { "code": "", "access_token": "" };
@@ -86,7 +87,8 @@ export class LoginPage {
               apellidos,
               correo,
               userId,
-              "");
+              "",
+              "facebook");
             // => Open user session and redirect to the next page
           });
         }
@@ -126,11 +128,29 @@ export class LoginPage {
   }
 
   async autenticarGoogle() {
-    this.gplus.login({})
+    this.gplus.login({
+      'offline': true,
+      'scopes': 'profile email'
+    })
     .then(res => {
       this.userData = res
-      console.log("success: " + this.userData)
-      this.loader.present();
+      console.log(res)
+      var givenName = res.givenName
+      var familyName = res.familyName
+      var email = res.email
+      var userId = res.userId
+      var imageUrl = res.imageUrl
+      console.log("UserData:\n" + givenName + "-" + familyName + "-" + email +  "-" + userId + "-" + imageUrl + "\n")
+      
+      this.loginSocialMedia(res.accessToken,
+        givenName,
+        familyName,
+        email,
+        userId,
+        imageUrl,
+        "google");
+      
+      //this.mostrarMensaje("Mensaje de Respuesta","UserData:\n" + givenName + "-" + familyName + "-" + email +  "-" + userId + "-" + imageUrl + "\n")
     })
     .catch(err => {this.userData = `Error ${JSON.stringify(err)}`
       this.mostrarMensaje("Mensaje de Error","Error: " + err)
@@ -188,7 +208,7 @@ export class LoginPage {
       .catch(err => console.error(err));
     }
 
-  loginSocialMedia(token, nombres, apellidos, correo, userId, imageUrl) {
+  loginSocialMedia(token, nombres, apellidos, correo, userId, imageUrl, socialtype) {
     //this.loader.present();
     let loadingFb = this.loading.create({
       content: 'Cargando...'
@@ -230,8 +250,9 @@ export class LoginPage {
     datosregistro.APELLIDOS = apellidos;
     datosregistro.CONTRASENA = userId;
     datosregistro.NOMBRES = nombres;
-    datosregistro.TELEFONO = "9999999999";
+    datosregistro.TELEFONO = "99999999";
     datosregistro.CEDULA = "";
+    //if(imageUrl !== "")
     datosregistro.IMAGEN =  "";//imageUrl;
     datosregistro.TEL_FIJO = "";
     datosregistro.DIRECCION = "";
@@ -277,7 +298,13 @@ export class LoginPage {
         loadingFb.dismiss();
         window.localStorage.setItem("userToken", data.TOKEN);
         window.localStorage.setItem("email", this.dataUsuario.CORREO);
-        window.localStorage.setItem("isFacebook", "True");
+        if(socialtype == "facebook"){
+          window.localStorage.setItem("isFacebook", "True");
+          window.localStorage.setItem("isGoogle", "False");
+        }else if(socialtype == "google"){
+          window.localStorage.setItem("isFacebook", "False");
+          window.localStorage.setItem("isGoogle", "True");
+        }
         this.navCtrl.setRoot(HomePage);
       } else {
         loadingFb.dismiss();
@@ -370,6 +397,7 @@ export class LoginPage {
           window.localStorage.setItem("userToken", data.TOKEN);
           window.localStorage.setItem("email", this.dataUsuario.CORREO);
           window.localStorage.setItem("isFacebook", "False");
+          window.localStorage.setItem("isGoogle", "False");
           this.navCtrl.setRoot(HomePage);
         } else {
           this.loader.dismiss();

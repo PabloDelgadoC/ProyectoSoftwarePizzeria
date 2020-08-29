@@ -1,0 +1,52 @@
+Don´t pay attention
+#!i,!),C?8vXQwZd)y~m-oaG6MDG]+T-!M-<?ttNg|)3Z%O&W:
+
+What is important, is here
+
+597411026712-fdevgl2jflm25lq7ne2vccpped7ss6ne.apps.googleusercontent.com
+
+keytool -keystore italiandeliexpress.keystore -list -v
+sha1: F8:5C:3D:BA:14:5D:2F:9F:E2:A9:E0:73:B1:0E:CE:FE:B8:3E:0F:23
+
+keytool -keystore italiandeli.keystore -list -v >> result3.txt
+
+the keystore to use in debug and release is:
+italiandeli.keystore
+
+com.innovasystem.pizzeria
+
+OAuth-Android:
+181588710227-i5l3kj3i476b6rn383mg6b1od3t0l277.apps.googleusercontent.com
+
+OAuth-IOS:
+181588710227-o0f3h0af1ujhmlo3jdd66573ou6923a1.apps.googleusercontent.com
+
+OAuth-Web-Client:
+181588710227-7kki71sij3i9knfr52ll8bmac103aiaa.apps.googleusercontent.com
+secret code: FdUq3iQN0Qt9e6-HL6ndE8Ye
+
+cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=com.googleusercontent.apps.597411026712-s22ddcskp52sff4k021pdj23s18qicq8 --variable WEB_APPLICATION_CLIENT_ID=597411026712-fdevgl2jflm25lq7ne2vccpped7ss6ne.apps.googleusercontent.com
+
+To run on android devices
+run debug:
+ionic cordova run android --debug
+
+run release:
+ionic cordova run android --release
+
+To build apk
+build debug:
+ionic cordova build androd --debug
+
+build release:
+ionic cordova build android --release
+
+Note:
+with build.json, apk is signed automatically, should not used, will generate apk unsigned, it tells you in the file-name
+
+Commands when google-plus fails
+cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=com.googleusercontent.apps.597411026712-s22ddcskp52sff4k021pdj23s18qicq8 --variable WEB_APPLICATION_CLIENT_ID=597411026712-fdevgl2jflm25lq7ne2vccpped7ss6ne.apps.googleusercontent.com
+
+cordova clean
+
+ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="230635621290029" --variable APP_NAME="Italian Deli Express"

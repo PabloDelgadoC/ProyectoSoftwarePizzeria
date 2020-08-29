@@ -40,11 +40,11 @@ export class TimeServiceProvider {
   }
 
   init(){
-    /*
+    
     let diaActual = new Date().getDay()
     diaActual--
     this.cargarHorario(diaActual.toString())
-    */
+    
   }
 
   getHorario(){

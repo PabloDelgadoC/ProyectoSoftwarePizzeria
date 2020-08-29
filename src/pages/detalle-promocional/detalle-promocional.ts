@@ -37,7 +37,7 @@ export class DetallePromocionalPage {
           public events: Events,
           public toastCtrl: ToastController,
           private viewCtrl : ViewController,
-          //public horaChecker: TimeServiceProvider
+          public horaChecker: TimeServiceProvider
   ) {
     this.currentDate= new Date();
     this.objetivo = this.navParams.get("objetivo");
@@ -52,7 +52,7 @@ export class DetallePromocionalPage {
   }
 
   ionViewDidLoad() {
-    /*
+    
     let arrayTemp = this.horaChecker.checkTime()
     if(arrayTemp[0] !== "OK!"){
       this.message1 = arrayTemp[0]
@@ -60,7 +60,7 @@ export class DetallePromocionalPage {
     }
     let combo = this.navParams.get("combo");
     console.log(combo);
-    */   
+      
   }
   getLocalCombosToPreview() {
     let loading = this.loadingCtrl .create({

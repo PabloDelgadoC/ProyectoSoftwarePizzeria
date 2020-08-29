@@ -38,6 +38,13 @@
             {
               "client_id": "597411026712-fdevgl2jflm25lq7ne2vccpped7ss6ne.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "597411026712-s22ddcskp52sff4k021pdj23s18qicq8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.innovasystem.pizzeria"
+              }
             }
           ]
         }

@@ -101,8 +101,8 @@
                 "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
             },
             "cordova-plugin-googleplus": {
-                "REVERSED_CLIENT_ID": "com.googleusercontent.apps.320424180530-q7cirh7otkfal6v6c5ci2vlr83d71goo",
-                "WEB_APPLICATION_CLIENT_ID": "320424180530-q7cirh7otkfal6v6c5ci2vlr83d71goo.apps.googleusercontent.com",
+                "REVERSED_CLIENT_ID": "com.googleusercontent.apps.597411026712-s22ddcskp52sff4k021pdj23s18qicq8",
+                "WEB_APPLICATION_CLIENT_ID": "597411026712-fdevgl2jflm25lq7ne2vccpped7ss6ne.apps.googleusercontent.com",
                 "PLAY_SERVICES_VERSION": "15.0.1"
             }
         },
