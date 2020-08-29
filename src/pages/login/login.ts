@@ -402,17 +402,34 @@ export class LoginPage {
         },
         {
           text: 'Send',
-          handler: data => {
+          handler: async (data) => {
+            let toast: any = null;
+            await this.httpRequest.patch(Constantes.OLVIDE_CONTRASENA, data)
+              .then( (res:any) => {
+                console.log(res);
+                if( res.STATUS == 'OK'){
+                  toast = this.toastCtrl.create({
+                    message: 'Correo enviado de manera exitosa',
+                    duration: 2500,
+                    position: 'top',
+                    cssClass: 'dark-trans'
+                  });
+                  toast.present();
+                }
+                else{
+                  toast = this.toastCtrl.create({
+                    message: 'El correo no se encuentra registrado',
+                    duration: 2500,
+                    position: 'top',
+                    cssClass: 'dark-trans'
+                  });
+                  toast.present();
+                }
+              }, 
+              (error) => {
+                console.log('ERROR CON LA PETICION PATCH DE OLVIDO CONTRASENA: ', error);
+              });
             console.log('Send clicked');
-            let toast = this.toastCtrl.create({
-              message: 'Email was sended successfully',
-              duration: 3000,
-              position: 'top',
-              cssClass: 'dark-trans',
-              closeButtonText: 'OK',
-              showCloseButton: true
-            });
-            toast.present();
           }
         }
       ]

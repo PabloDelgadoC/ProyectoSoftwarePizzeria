@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Http, HttpModule } from '@angular/http';
 
@@ -72,6 +72,21 @@ export class HttpRequestProvider {
         });
     });*/
     
+  }
+
+  public patch(url: string, data: any) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    console.log('This is the email is going to be send to the back-end: ',data);
+    const promise = new Promise( (resolve, reject) => {
+      this.http.patch(url, data, {headers:headers}).toPromise()
+        .then( (res) => {
+          resolve(res);
+        }, (error) => {
+          reject(error);
+        });
+    });
+    return promise;
   }
 
 }
