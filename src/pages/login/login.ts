@@ -412,8 +412,8 @@ export class LoginPage {
 
   forgotPass() {
     let forgot = this.forgotCtrl.create({
-      title: 'Forgot Password?',
-      message: "Enter you email address to send a reset link password.",
+      title: 'Olvidó su Contraseña?',
+      message: "Ingrese el correo con el que inicia sesión.",
       inputs: [
         {
           name: 'email',
