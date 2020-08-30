@@ -18,12 +18,12 @@ export class Constantes {
 
 
     //Urls
-    //public static API_URL = 'http://navi.pythonanywhere.com/rest/';
+    public static API_URL = 'http://navi.pythonanywhere.com/rest/';
     //public static API_URL = 'http://localhost:8000/rest/';
-    public static API_URL = 'http://192.168.100.6:8000/rest/'
-    public static API_URL2 = 'http://127.0.0.1:8000/rest/'
-    public static API_URL3 = 'http://192.168.100.6:8000/rest/'
-    public static HORARIO_URL = Constantes.API_URL3 + "horario"
+    //public static API_URL = 'http://192.168.100.6:8000/rest/'
+    //public static API_URL2 = 'http://127.0.0.1:8000/rest/'
+    //public static API_URL3 = 'http://192.168.100.6:8000/rest/'
+    public static HORARIO_URL = Constantes.API_URL + "horario"
     public static TAMANOS_URL = Constantes.API_URL  +"tamanos/";
     public static BANNER_URL = Constantes.API_URL  +"api/img/";
     public static OPCIONIMG_URL = Constantes.API_URL  +"api/img/";
@@ -58,7 +58,7 @@ export class Constantes {
     public static DETALLE_PEDIDO = Constantes.API_URL + "pedido/ver"
     public static LISTA_TODOS_LOCALES = Constantes.API_URL + "locales/info"
     public static LISTA_TODAS_COBERTURAS = Constantes.API_URL + "coordenadas/info"
-    public static OLVIDE_CONTRASENA = Constantes.API_URL2 + 'email';
+    public static OLVIDE_CONTRASENA = Constantes.API_URL + 'email';
 
 
     //metodos

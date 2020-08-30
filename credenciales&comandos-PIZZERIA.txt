@@ -50,3 +50,20 @@ cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CLIENT_I
 cordova clean
 
 ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="230635621290029" --variable APP_NAME="Italian Deli Express"
+
+MySQLPassword
+r@d8@WX7Mk36jBY
+
+SSH-Host: Navi
+SSH-User: Navi
+SSH-key: innova2019*
+Host: Navi.mysql.pythonanywhere-services.com
+User: Navi
+Name: Navi$Pizzeria
+Password: r@d8@WX7Mk36jBY
+
+
+credenciales
+
+juancarlos.carrillovalenciares@gmail.com
+innova2019*
