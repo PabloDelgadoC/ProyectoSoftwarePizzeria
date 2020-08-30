@@ -38,8 +38,7 @@ export class AvisoPage {
 
   continuar(event: Event){
     event.preventDefault;
-    //this.navCtrl.push(this.toPage);
-    this.app.getRootNav().push(this.toPage)
+    //this.app.getRootNav().push(this.toPage)
     this.viewCtrl.dismiss()
     
   }

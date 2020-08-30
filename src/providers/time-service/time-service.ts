@@ -42,22 +42,23 @@ export class TimeServiceProvider {
   init(){
     
     let diaActual = new Date().getDay()
-    diaActual--
+    console.log("WeekDay: "+diaActual)
+    if(diaActual > 0)
+      diaActual--
+    else if(diaActual == 0)
+      diaActual = 6
+    console.log("WeekDay: "+diaActual)
     this.cargarHorario(diaActual.toString())
     
   }
 
   getHorario(){
-    if(this.horaInicio === ""){
-      this.init()
-    }
+    this.reviewTime()
     return this.horaInicio + " - " + this.horaFin
   }
 
   checkTime(){
-    if(this.horaInicio === ""){
-      this.init()
-    }
+    this.reviewTime()
     let date = new Date()
     let time = date.getHours().toString() + ":" + date.getMinutes().toString() + ":" + date.getSeconds().toString()
     console.log(time)
@@ -65,6 +66,12 @@ export class TimeServiceProvider {
       return ["OK!"]
     else
       return ["El local se encuentra cerrado.", "El horario de atención es de: ", this.horaInicio + " a " + this.horaFin]
+  }
+
+  reviewTime(){
+    if(this.horaInicio === "" || this.horaFin === "" || this.horaInicio === undefined || this.horaFin === undefined){
+      this.init()
+    }
   }
 
 }
