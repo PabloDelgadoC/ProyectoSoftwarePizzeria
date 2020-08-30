@@ -208,7 +208,7 @@ export class LoginPage {
       .catch(err => console.error(err));
     }
 
-  loginSocialMedia(token, nombres, apellidos, correo, userId, imageUrl, socialtype) {
+  async loginSocialMedia(token, nombres, apellidos, correo, userId, imageUrl, socialtype) {
     //this.loader.present();
     let loadingFb = this.loading.create({
       content: 'Cargando...'
@@ -267,7 +267,7 @@ export class LoginPage {
     }
     console.log("Aquí datos en registrooooooo.....................");
     console.log(datosregistro);
-    this.httpRequest.post(Constantes.getRegistroFormUrl() , datosregistro).then((res : any)=>{//datos
+    let temp = await this.httpRequest.post(Constantes.getRegistroFormUrl() , datosregistro).then((res : any)=>{//datos
       //localStorage.setItem('dataUsuario', JSON.stringif(this.respuesta));
       //console.log(res);
       var resJ =  res.json();
@@ -291,7 +291,7 @@ export class LoginPage {
     });
     console.log("entra-----------------------------------------------------Pasa el err o la creacion satisfactoria");
 
-    this.httpRequest.post(this.apiUrl + "login", datos).then((res: any) => {
+    let arr2 = await this.httpRequest.post(this.apiUrl + "login", datos).then((res: any) => {
       console.log(res);
       var data = res.json();
       if (data.STATUS == "OK") {

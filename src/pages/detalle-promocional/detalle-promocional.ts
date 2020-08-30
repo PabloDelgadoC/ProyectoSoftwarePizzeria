@@ -25,6 +25,7 @@ export class DetallePromocionalPage {
   public currentDate: Date;
   public message1: string = "";
   public message2: string = "";
+  public message3: string = "";
   public weekdays = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
   constructor(
           public navCtrl: NavController,
@@ -57,6 +58,7 @@ export class DetallePromocionalPage {
     if(arrayTemp[0] !== "OK!"){
       this.message1 = arrayTemp[0]
       this.message2 = arrayTemp[1]
+      this.message3 = arrayTemp[2]
     }
     let combo = this.navParams.get("combo");
     console.log(combo);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ModalController, App } from 'ionic-angular';
 import { TimeServiceProvider } from '../../providers/time-service/time-service';
 import { HomePage } from '../home/home';
 
@@ -19,13 +19,17 @@ export class AvisoPage {
   toPage: any;
   message1: string  = "";
   message2: string = "";
+  message3: string = "";
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
-    private viewCtrl : ViewController) {
+    public viewCtrl : ViewController,
+    public modalCtrl: ModalController,
+    public app: App) {
     this.toPage = this.navParams.get("pagina")
     this.message1 = this.navParams.get("message1")
     this.message2 = this.navParams.get("message2")
+    this.message3 = this.navParams.get("message3")
   }
 
   ionViewDidLoad() {
@@ -34,8 +38,10 @@ export class AvisoPage {
 
   continuar(event: Event){
     event.preventDefault;
-    this.navCtrl.push(this.toPage);
-    this.viewCtrl.dismiss();
+    //this.navCtrl.push(this.toPage);
+    this.app.getRootNav().push(this.toPage)
+    this.viewCtrl.dismiss()
+    
   }
 
   cerrarModal(){

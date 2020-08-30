@@ -64,7 +64,7 @@ export class TimeServiceProvider {
     if(time >= this.horaInicio && time < this.horaFin)
       return ["OK!"]
     else
-      return ["El local se encuentra cerrado.", "El horario de atención es de " + this.horaInicio + " a " + this.horaFin]
+      return ["El local se encuentra cerrado.", "El horario de atención es de: ", this.horaInicio + " a " + this.horaFin]
   }
 
 }

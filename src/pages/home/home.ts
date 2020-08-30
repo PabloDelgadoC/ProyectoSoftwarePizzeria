@@ -293,6 +293,7 @@ export class HomePage implements OnInit{
         pagina : CrearPizzaPage,
         message1 : arrayTemp[0],
         message2 : arrayTemp[1], 
+        message3 : arrayTemp[2], 
       })
       modal.present();
     }else
@@ -310,6 +311,7 @@ export class HomePage implements OnInit{
         pagina : TradicionalesPage,
         message1 : arrayTemp[0],
         message2 : arrayTemp[1], 
+        message3 : arrayTemp[2], 
       })
       modal.present();
     }else
@@ -327,6 +329,7 @@ export class HomePage implements OnInit{
         pagina : FavoritasPage,
         message1 : arrayTemp[0],
         message2 : arrayTemp[1], 
+        message3 : arrayTemp[2], 
       })
       modal.present();
       
