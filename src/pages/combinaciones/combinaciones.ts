@@ -138,7 +138,7 @@ export class CombinacionesPage {
               if(pizza.borde != null)
                 combo['COSTO'] = combo['COSTO'] + (pizza.borde.costo)
             })
-            combo['COSTO'] = this.redondearDecimales(combo['COSTO'], 2)
+            //combo['COSTO'] = this.redondearDecimales(combo['COSTO'], 2)
             this.combos.push(combo)
             console.log("Entra a combos--------------------------------------------------->");
             console.log(this.combos)
