@@ -72,7 +72,7 @@ export class PizzaTresPage {
       });
     }
 
-    this.pizzaTres = { ingredientes: [], nombre: null, descripcion: "Pizza combo promocional", imgUrl: null, tamano: null, costo: null, cantidad: 1 };  
+    this.pizzaTres = { ingredientes: [], nombre: null, descripcion: "Pizza combo promocional", imgUrl: null, tamano: null, costo: null, cantidad: 1, borde: null };  
     if (this.objetivo != 'editar-pizza') {
       this.pizzas.push(this.pizzaTres);
     }

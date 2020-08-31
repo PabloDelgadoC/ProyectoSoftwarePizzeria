@@ -61,8 +61,28 @@ export class TimeServiceProvider {
     this.reviewTime()
     let date = new Date()
     let time = date.getHours().toString() + ":" + date.getMinutes().toString() + ":" + date.getSeconds().toString()
+    let dateB = new Date()
+    let dateE = new Date()
+    let arr = this.horaInicio.split(":")
+    let arr2 = this.horaFin.split(":")
+
+    dateB.setHours(Number(arr[0]))
+    dateB.setMinutes(Number(arr[1]))
+    dateB.setSeconds(Number(arr[2]))
+
+    dateE.setHours(Number(arr2[0]))
+    dateE.setMinutes(Number(arr2[1]))
+    dateE.setSeconds(Number(arr2[2]))
+
+    console.log(date.getHours())
+    console.log(dateB.getHours())
+    console.log(dateE.getHours())
+
     console.log(time)
-    if(time >= this.horaInicio && time < this.horaFin)
+    console.log("hora inicio: " + this.horaInicio)
+    console.log("hora fin: " + this.horaFin)
+
+    if(date >= dateB && date < dateE)
       return ["OK!"]
     else
       return ["El local se encuentra cerrado.", "El horario de atención es de: ", this.horaInicio + " a " + this.horaFin]

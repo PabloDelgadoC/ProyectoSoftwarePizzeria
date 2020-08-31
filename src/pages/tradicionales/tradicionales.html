@@ -42,7 +42,7 @@
     </ion-row>
     <ion-grid>
         <ion-row>
-            <ion-col *ngFor="let pizza of pizzas" col-6>
+            <ion-col *ngFor="let pizza of pizzas; let i = index" col-6>
                 <ion-card class="formato-card-terceary">
                     <button *ngIf="pizza.favorita == 1" id="{{pizza.id}}" ion-button clear small color="primary" icon-start (click)="favorito(pizza)">
                 <ion-icon name='heart'></ion-icon>
@@ -66,10 +66,10 @@
                         <div class="formato-span-terc">
                             <span>Selecciona el borde</span><br>
                         </div>
-                        <ion-row radio-group [(ngModel)]="bordeElegido">
+                        <ion-row radio-group [(ngModel)]="bordesElegidos[i]">
                             <ion-col *ngFor="let borde of bordes" col-12>
                                 <div float-left no-padding style="width: 100%;" color="secondary_white">
-                                    <ion-radio style="padding-top:0%; padding-bottom: 0%; margin-left:4%;" [value]="borde" #tamanoSelect (ionSelect)="cambiarBorde()">
+                                    <ion-radio style="padding-top:0%; padding-bottom: 0%; margin-left:4%;" [value]="borde" #tamanoSelect (ionSelect)="cambiarBorde(pizza,i)">
                                         {{borde.nombre}}
                                     </ion-radio>
                                     <ion-label *ngIf="borde.nombre!='Mozzarella'" style="margin-top: -17%; margin-bottom: 0;margin-left: 10px;" class="formato-span-terc">{{borde.nombre}} + {{borde.costo}}</ion-label>
@@ -85,7 +85,7 @@
                                 <!--<span no-padding style="margin-left: 3%; font-size: 70%; margin-top: 0%; margin-bottom: 0%;" text-left>Desde</span>-->
                             </ion-col>
                             <ion-col col-8>
-                                <span no-padding style="color: #1ABC9C; font-size: 110%; margin-top: 0%; margin-bottom: 0%;">$ {{pizza.costo}}</span>
+                                <span no-padding style="color: #1ABC9C; font-size: 110%; margin-top: 0%; margin-bottom: 0%;">$ {{costos[i] | number:'1.2-2'}}</span>
                             </ion-col>
                         </ion-row>
 

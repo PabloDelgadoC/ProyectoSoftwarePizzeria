@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController, Events, AlertController, App } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import { VirtualScroll } from 'ionic-angular';
@@ -20,16 +20,22 @@ export class TradicionalesPage {
 
   public objetivo : string;
   public pizzas:Array<Pizza> = new Array<Pizza>();
+  public costos:Array<Number> = new Array<Number>();
+  public costosString: Array<String> = new Array<String>();
   public tamanos: any;
   public bordes:any;
   public virtualScroll: VirtualScroll;
   tamanoElegido: any;
   bordeElegido: any;
+  bordesElegidos:Array<any> = new Array<any>();
   bordeElegidoChoice: any;
   public costoTamaTipo: any;
   costoSilver : Number;
   costoGold : Number;
   costoPlatinum : Number;
+  silver:Array<Number> = new Array<Number>();
+  gold:Array<Number> = new Array<Number>();
+  platinum:Array<Number> = new Array<Number>();
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -43,10 +49,16 @@ export class TradicionalesPage {
      this.objetivo = navParams.get("objetivo");
      this.cargarTamanos();
      this.cargarCostos();
+     
+     
      //let bordesList = []
      //bordesList.push({"id":"1","nombre":"Cheddar","descripcion":"Borde de Cheddar","tamano":"Mediano","costo":"1.50"});//no se usaran los costos
      //bordesList.push({"id":"2","nombre":"Mosarella","descripcion":"Borde de Mosarella","tamano":"Mediano","costo":"1.00"});//no se usaran los costos
               
+    }
+
+    ngOnInit(){
+      //this.cambiarPrecio()
     }
 
   obtenerPizzas(){
@@ -77,13 +89,19 @@ export class TradicionalesPage {
               tamano : child.TAMANO,
               cantidad : 1,
               costo : child.COSTO
-            }   
+            }
+            //this.costos.push(pizza.costo)
+            this.costosString.push("")
+            this.bordesElegidos.push(key)   
             if (child.TAMANO == "Silver"){
-              this.pizzas.push(pizza);  
+              this.pizzas.push(pizza);
+              this.silver.push(pizza.costo)  
             }else if (child.TAMANO == "Gold"){
               arrayGold.push(pizza);
+              this.gold.push(pizza.costo)
             }else if (child.TAMANO == "Platinum"){
               arrayPlatinum.push(pizza);
+              this.platinum.push(pizza.costo)
             } 
           }
           for (let pizzagold of arrayGold) {
@@ -92,6 +110,15 @@ export class TradicionalesPage {
           for (let pizzaplat of arrayPlatinum) {
             this.pizzas.push(pizzaplat);
           }
+          this.silver.forEach(silver=>{
+            this.costos.push(silver)
+          })
+          this.gold.forEach(gold =>{
+            this.costos.push(gold)
+          })
+          this.platinum.forEach(platinum =>{
+            this.costos.push(platinum)
+          })
         } 
         loading.dismiss();             
       },(error : any)=>{
@@ -164,7 +191,7 @@ export class TradicionalesPage {
       //tamano : child.TAMANO,
       tamano : pizza.tamano,
       cantidad : 1,
-      costo : Number(pizza.costo)+Number(this.bordeElegido.costo)
+      costo : Number(pizza.costo)+Number(pizza.borde.costo),
     }
     //pizzacpy.costo=Number(pizza.costo)+Number(this.bordeElegido.costo);
     //pizza.costo=Number(pizza.costo)+Number(this.bordeElegido.costo);
@@ -187,10 +214,10 @@ export class TradicionalesPage {
     }
   }
 
-  cargarTamanos() {
+  async cargarTamanos() {
     try {
       let token = window.localStorage.getItem("userToken");
-      this.httpRequest.get(Constantes.getTamanosUrl(token)).then((data: any) => {
+      let x = await this.httpRequest.get(Constantes.getTamanosUrl(token)).then((data: any) => {
         var response = data.json();
         let lista = [];
         if (response["TAMANOS"] != undefined) {
@@ -277,22 +304,28 @@ export class TradicionalesPage {
       console.log('Error: ', err.message);
     }
   }
-  cambiarBorde(){
+  cambiarBorde(pizza, index){
     event.cancelBubble;
     let loading = this.loadingCtrl .create({
       content: 'Cargando...'
     });
     loading.present();
+    
     this.pizzas.forEach(pizza => {
-      /*if(Number(this.bordeElegidoChoice.costo)<Number(this.bordeElegido.costo)){
+      /*
+      if(Number(this.bordeElegidoChoice.costo)<Number(this.bordeElegido.costo)){
         pizza.costo=Number(pizza.costo)+Number(this.bordeElegido.costo);  
       }else if(Number(this.bordeElegidoChoice.costo)>Number(this.bordeElegido.costo)){
         pizza.costo=Number(pizza.costo)-Number(this.bordeElegido.costo);
       }else{
         pizza.costo=Number(pizza.costo)
-      }*/
-      pizza.borde=this.bordeElegido;
+      }
+      */
+      //pizza.borde=this.bordeElegido;
     });
+    pizza.borde=this.bordesElegidos[index];
+    this.costos[index] = this.redondearDecimales(Number(pizza.costo)+Number(this.bordesElegidos[index].costo),2);
+    
     console.log("pizzas borde choice------------------------------------------------>")
     console.log(this.bordeElegidoChoice)
     console.log("pizzas borde------------------------------------------------>")
@@ -327,10 +360,16 @@ export class TradicionalesPage {
           });
           //this.bordes=bordesList;
           this.bordeElegido = this.bordes[0];
+          this.bordesElegidos.forEach(variable => {
+              variable = this.bordes[0]
+          })
           this.bordeElegidoChoice=this.bordeElegido;
           this.pizzas.forEach(pizza => {
             pizza.borde=this.bordeElegido;
+            
+            
           });
+          
           /* avisa que ya se ha terminado de cargar los bordes, para recibir cualquier pizza que se desee editar */
           //this.events.publish('carga-completa',"bordes");
           loading.dismiss();
@@ -361,6 +400,7 @@ export class TradicionalesPage {
     //console.log(this.costoTamaTipo);
     //console.log(this.pizzas);
     this.cargarBordes(this.tamanoElegido);
+    let index = 0;
     this.pizzas.forEach(pizza => {
       if(pizza.tamano == 'Silver'){
         /*if(this.tamanoElegido == this.tamanos[0]){
@@ -376,26 +416,32 @@ export class TradicionalesPage {
          }*/
          if(this.tamanoElegido.nombreBase == this.costoTamaTipo[0].tamano){
           pizza.costo = this.costoTamaTipo[0].costo;
+          this.costos[index] = pizza.costo 
         }
         else if(this.tamanoElegido.nombreBase == this.costoTamaTipo[3].tamano){
           pizza.costo = this.costoTamaTipo[3].costo;
+          this.costos[index] = pizza.costo 
           //pizza.costo = this.redondearDecimales((Number(this.costoSilver) + Number(Number(this.costoSilver)*0.332)), 2)
         }
          else if(this.tamanoElegido.nombreBase == this.costoTamaTipo[6].tamano){
           pizza.costo = this.costoTamaTipo[6].costo;
+          this.costos[index] = pizza.costo 
           //pizza.costo = this.redondearDecimales((Number(this.costoSilver) + Number(Number(this.costoSilver)*0.667)), 2)
          }
       }
       else if (pizza.tamano == 'Gold'){
         if(this.tamanoElegido.nombreBase == this.costoTamaTipo[1].tamano){
           pizza.costo = this.costoTamaTipo[1].costo;
+          this.costos[index] = pizza.costo 
         }
         else if(this.tamanoElegido.nombreBase == this.costoTamaTipo[4].tamano){
           pizza.costo = this.costoTamaTipo[4].costo;
+          this.costos[index] = pizza.costo 
           //pizza.costo = this.redondearDecimales((Number(this.costoGold) + Number(Number(this.costoGold)*0.294)), 2)
         }
          else if(this.tamanoElegido.nombreBase == this.costoTamaTipo[7].tamano){
           pizza.costo = this.costoTamaTipo[7].costo;
+          this.costos[index] = pizza.costo 
           //pizza.costo = this.redondearDecimales((Number(this.costoGold) + Number(Number(this.costoGold)*0.588)), 2) 
          }
       //pizza.costo = Number(pizza.costo) + Number(Number(pizza.costo)*0.33)
@@ -403,16 +449,20 @@ export class TradicionalesPage {
       else if (pizza.tamano == 'Platinum'){
         if(this.tamanoElegido.nombreBase == this.costoTamaTipo[2].tamano){
           pizza.costo = this.costoTamaTipo[2].costo;
+          this.costos[index] = pizza.costo 
         }
         else if(this.tamanoElegido.nombreBase == this.costoTamaTipo[5].tamano){
           pizza.costo = this.costoTamaTipo[5].costo;
+          this.costos[index] = pizza.costo 
           //pizza.costo = this.redondearDecimales((Number(this.costoPlatinum) + Number(Number(this.costoPlatinum)*0.251)), 2) 
         }
          else if(this.tamanoElegido.nombreBase == this.costoTamaTipo[8].tamano){
           pizza.costo = this.costoTamaTipo[8].costo;
+          this.costos[index] = pizza.costo 
           //pizza.costo = this.redondearDecimales((Number(this.costoPlatinum) + Number(Number(this.costoPlatinum)*0.502)), 2) 
          }
       }
+      index++;
     });
   }
   
@@ -463,5 +513,6 @@ export class TradicionalesPage {
         return Number(numero.toFixed(decimales)) === 0 ? 0 : numero;  // En valores muy bajos, se comprueba si el numero es 0 (con el redondeo deseado), si no lo es se devuelve el numero otra vez.
     }
 }
+
 
 }

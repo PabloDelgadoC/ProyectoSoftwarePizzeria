@@ -38,7 +38,7 @@ export class PizzaUnoPage {
   combo = [];
   
 
-  pizzaUno: PizzaPromo = { ingredientes: [], nombre: null, descripcion: "Pizza combo promocional", imgUrl: null, tamano: null, costo: null, cantidad: 1 };
+  pizzaUno: PizzaPromo = { ingredientes: [], nombre: null, descripcion: "Pizza combo promocional", imgUrl: null, tamano: null, costo: null, cantidad: 1 , borde: null};
 
   constructor(
     public navCtrl: NavController,

@@ -8,6 +8,7 @@ import { IngredientesPromoPage } from '../ingredientes-promo/ingredientes-promo'
 import { PizzaDosPage } from '../pizza-dos/pizza-dos';
 import { IngredientesPromo } from '../../interfaces/IIngredientesPromo';
 import { CombinacionesPage } from '../combinaciones/combinaciones';
+import { Borde } from '../../interfaces/IBorde';
 
 @IonicPage()
 @Component({
@@ -37,9 +38,15 @@ export class PizzaComboNuevoDosPage {
   ingredientesCont = [];
   combos = [];
   combo = [];
+  bordes: any
+  bordeElegido:any
+  bordeElegidoChoice:any
+  bordesChecker: Array<boolean> = new Array<boolean>();
+  bordesSelector: Array<boolean> = new Array<boolean>();
+   
   
 
-  pizzaUno: PizzaPromo = { ingredientes: [], nombre: null, descripcion: "Pizza combo promocional", imgUrl: null, tamano: null, costo: null, cantidad: 1 };
+  pizzaUno: PizzaPromo = { ingredientes: [], nombre: null, descripcion: "Pizza combo promocional", imgUrl: null, tamano: null, costo: null, cantidad: 1 , borde: null};
 
   constructor(
     public navCtrl: NavController,
@@ -84,7 +91,7 @@ export class PizzaComboNuevoDosPage {
     this.diaPromo = this.navParams.get("promo");
     this.costoCombo = this.navParams.get('costo');
     //this.combos = this.navParams.get("combos");
-    this.cargarTamanos();
+    //this.cargarTamanos();
     this.ingredientesEnabled = true;
     this.objt = "pizzaPromo"
 
@@ -156,6 +163,7 @@ export class PizzaComboNuevoDosPage {
           this.tamanoElegido = this.tamanos[0];
             this.pizzaUno.tamano = this.tamanos[0];
             this.cargarIngredientes();
+            this.cargarBordes(this.tamanoElegido);
          /* if (this.diaPromo == 'Ultra Pack Dominguero') {
             this.tamanoElegido = this.tamanos[0];
             this.pizzaUno.tamano = this.tamanos[0];
@@ -266,6 +274,96 @@ export class PizzaComboNuevoDosPage {
       ]
     });
     alert.present();
+  }
+
+  cargarBordes(tamano : any){
+    let loading = this.loadingCtrl .create({
+      content: 'Cargando...'
+    });
+    loading.present();
+    this.bordes = new Array<Borde>();
+    try{
+      let token = window.localStorage.getItem("userToken");
+      this.httpRequest.get(Constantes.getTamanosBordesUrl(token,tamano.id)).then((data : any) => {
+        
+        var response = data.json();
+        console.log("Tamano cambio---------------------------------------------->");
+        console.log(response);
+        if(response["BORDES"] != undefined){
+          response["BORDES"].forEach((child :any) => {
+            let borde:Borde ={
+              id: child.ID,
+              nombre : child.NOMBRE,
+              descripcion : child.DESCRIPCION,
+              tamano : child.TAMANO,
+              costo : child.COSTO
+            }
+            this.bordes.push(borde);
+            this.bordesChecker.push(false)
+            this.bordesSelector.push(false)
+          });
+          //this.bordes=bordesList;
+          this.bordeElegido = this.bordes[0];
+          this.pizzas.forEach(pizza => {
+            pizza.borde=this.bordeElegido;
+          });
+          /* avisa que ya se ha terminado de cargar los bordes, para recibir cualquier pizza que se desee editar */
+          //this.events.publish('carga-completa',"bordes");
+          loading.dismiss();
+    
+        }else{
+          loading.dismiss();
+          if(response["STATUS"] != 'OK'){
+            console.log(response["DETALLE"])
+            this.mostrarMensaje(Constantes.ALGO_ANDA_MAL, Constantes.INTENTALO_NUEVAMENTE);
+          }
+        }
+        
+      }, (err)=>{
+        this.mostrarMensaje(Constantes.SIN_CONEXION, Constantes.REVISAR_CONEXION);
+      });
+    }
+    catch(err) {
+      this.mostrarMensaje(Constantes.SIN_CONEXION, Constantes.REVISAR_CONEXION);
+    }
+    
+  }
+
+  handlerCheckbox2(borde: Borde, index){
+    let loading = this.loadingCtrl .create({
+      content: 'Cargando...'
+    });
+    loading.present();
+    if(this.bordesChecker[index] == true){
+        this.bordeElegido = borde
+        this.bordeElegidoChoice = this.bordeElegido
+        this.bloquearAdicionBordes(this.bordesSelector)
+    }else if(this.bordesChecker[index] == false){
+        this.bordeElegidoChoice = undefined
+        this.bloquearAdicionBordes2(this.bordesSelector)
+    }
+
+
+    loading.dismiss();
+  }
+
+  bloquearAdicionBordes(bordes){
+    let index = 0
+    bordes.forEach(selector =>{
+      if(this.bordesChecker[index] == true)
+        this.bordesSelector[index] = false
+      else
+      this.bordesSelector[index] = true
+      index++
+    });
+  }
+
+  bloquearAdicionBordes2(bordes){
+    let index = 0
+    bordes.forEach(selector =>{
+      this.bordesSelector[index] = false
+      index++
+    });
   }
 
 
@@ -532,6 +630,10 @@ export class PizzaComboNuevoDosPage {
         this.presentAlert('Faltan ingredientes', 'No has seleccionado ningún ingrediente');
         return;
       }*/
+      else if(this.bordeElegidoChoice === undefined){  
+        this.presentAlert('Falta el borde de la pizza', 'No has seleccionado ningún borde para tu pizza');
+        return;
+      }
       else {
         console.log("pizza uno --------------------------------------->");
         console.log(this.pizzaUno);
@@ -555,8 +657,9 @@ export class PizzaComboNuevoDosPage {
         this.pizzaUno.nombre = "Pizza Dos";
         //Little
         this.costoCombo = this.navParams.get('costo');
-          this.pizzaUno.costo = this.costoCombo / 2;
+          this.pizzaUno.costo = (this.costoCombo + this.bordeElegidoChoice.costo) /2;
           this.tamanoEnvio = this.pizzaUno.tamano;
+          this.pizzaUno.borde = this.bordeElegidoChoice
           this.abrirCombinaciones();
                 
         //Nono

@@ -111,4 +111,29 @@ page-pizza-combonuevoDos {
         height: 80%;
         float: none;
     }
+    .formato-span-secondary2 {
+        width: 80%;
+        font-size: 1.2em;
+        //text-align: center;
+        color: rgba(0, 0, 0, 0.925);
+        margin-top: -20%; //15
+        margin-bottom: 6%;
+        margin-left: auto; //centrado1
+        margin-right: -3%; //auto;//centrado2
+        float: none;
+        font-weight: 600;
+    }
+    .formato-span-terc2 {
+        width: 100%;
+        font-size: 0.7em;
+        text-align: center;
+        color: black;
+        margin-top: 0%;
+        margin-bottom: 5%;
+        padding-top: 0%;
+        padding-bottom: 0%;
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+    }
 }

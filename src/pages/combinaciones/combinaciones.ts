@@ -109,6 +109,7 @@ export class CombinacionesPage {
           console.log(combo)
           let objetivo = navParams.get("opcional");
           this.diaPromo = this.navParams.get("promo");
+
           
           if( pizza != null ){
              this.combinacion.pizzas.push(pizza);
@@ -133,6 +134,11 @@ export class CombinacionesPage {
             });              
        }
          if( combo != null ){
+            combo['PIZZAS'].forEach(pizza =>{
+              if(pizza.borde != null)
+                combo['COSTO'] = combo['COSTO'] + (pizza.borde.costo)
+            })
+            combo['COSTO'] = this.redondearDecimales(combo['COSTO'], 2)
             this.combos.push(combo)
             console.log("Entra a combos--------------------------------------------------->");
             console.log(this.combos)
@@ -1181,5 +1187,14 @@ export class CombinacionesPage {
       combos: combos
     });
   }
+
+  redondearDecimales(numero, decimales) {
+    let numeroRegexp = new RegExp('\\d\\.(\\d){' + decimales + ',}');   // Expresion regular para numeros con un cierto numero de decimales o mas
+     if (numeroRegexp.test(numero)) {         // Ya que el numero tiene el numero de decimales requeridos o mas, se realiza el redondeo
+         return Number(numero.toFixed(decimales));
+     } else {
+         return Number(numero.toFixed(decimales)) === 0 ? 0 : numero;  // En valores muy bajos, se comprueba si el numero es 0 (con el redondeo deseado), si no lo es se devuelve el numero otra vez.
+     }
+ }
 
 }

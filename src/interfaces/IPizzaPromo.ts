@@ -1,5 +1,6 @@
 
 import { IngredientesPromo } from "../interfaces/IIngredientesPromo";
+import { Borde } from "./IBorde";
 
 export interface PizzaPromo{
     ingredientes : IngredientesPromo[]
@@ -9,4 +10,5 @@ export interface PizzaPromo{
     tamano : any,
     costo: Number,
     cantidad : Number,
+    borde: Borde,
 }

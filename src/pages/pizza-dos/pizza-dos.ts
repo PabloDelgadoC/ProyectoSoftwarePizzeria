@@ -66,7 +66,7 @@ export class PizzaDosPage {
     this.cargarTamanos();
     this.tamanoElegido = this.tamanoPizza;
     this.costoCombo = this.navParams.get('costo');
-    this.pizzaDos = {ingredientes: [], nombre :null, descripcion : "Pizza combo promocional", imgUrl : null, tamano : null, costo: null, cantidad:1};
+    this.pizzaDos = {ingredientes: [], nombre :null, descripcion : "Pizza combo promocional", imgUrl : null, tamano : null, costo: null, cantidad:1, borde: null};
     this.ingredientesEnabled = true;
     if (this.objetivo!='editar-pizza'){
       this.pizzas.push(this.pizzaDos);

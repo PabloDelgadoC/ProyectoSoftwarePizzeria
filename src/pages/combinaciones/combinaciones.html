@@ -769,6 +769,21 @@
                                                         </div>
                                                     </ion-col>
                                                 </ion-row>
+                                                <ion-row *ngIf="pizza.borde != null" class="formato-card-content-row-1" style="height: cover;">
+                                                    <ion-col col-6 style="text-align: left;">
+                                                        <div no-padding name>
+                                                            <span class="title"> Borde:
+                                                                                    </span>
+                                                        </div>
+                                                    </ion-col>
+                                                    <ion-col col-6 style="text-align: left;">
+                                                        <div  no-padding name>
+                                                            <span>
+                                                                                                                    {{pizza.borde.nombre}}
+                                                                                                            </span>
+                                                        </div>
+                                                    </ion-col>
+                                                </ion-row>
                                                 <!--<ion-row *ngIf="pizza.ingredientes != null" class="formato-card-content-row-1" style="height: cover;">
                                                     <ion-col col-12 style="text-align: left;">
                                                         <div *ngFor="let ingrediente of pizza.ingredientes" no-padding name>

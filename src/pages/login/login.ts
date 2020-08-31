@@ -423,13 +423,13 @@ export class LoginPage {
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Send',
+          text: 'Enviar',
           handler: async (data) => {
             let toast: any = null;
             await this.httpRequest.patch(Constantes.OLVIDE_CONTRASENA, data)

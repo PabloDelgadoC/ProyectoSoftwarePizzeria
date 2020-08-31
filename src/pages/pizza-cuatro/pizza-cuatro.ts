@@ -58,7 +58,7 @@ export class PizzaCuatroPage {
     this.cargarTamanos();
     this.ingredientesEnabled = true;
     this.tamanoPizza = this.navParams.get("tamanoPizza");
-    this.pizzaCuatro = {ingredientes: [], nombre :null, descripcion : "Pizza combo promocional", imgUrl : null, tamano : null, costo:null, cantidad:1};
+    this.pizzaCuatro = {ingredientes: [], nombre :null, descripcion : "Pizza combo promocional", imgUrl : null, tamano : null, costo:null, cantidad:1, borde: null};
     this.objetivo = this.navParams.get("objetivo");
     if (this.objetivo!='editar-pizza'){
       this.pizzas.push(this.pizzaCuatro);
