@@ -136,9 +136,9 @@ export class CombinacionesPage {
          if( combo != null ){
             combo['PIZZAS'].forEach(pizza =>{
               if(pizza.borde != null)
-                combo['COSTO'] = combo['COSTO'] + (pizza.borde.costo)
+                combo['COSTO'] = combo['COSTO'] + (pizza.borde.costo/1)
             })
-            //combo['COSTO'] = this.redondearDecimales(combo['COSTO'], 2)
+            combo['COSTO'] = this.redondearDecimales(combo['COSTO'], 2)
             this.combos.push(combo)
             console.log("Entra a combos--------------------------------------------------->");
             console.log(this.combos)
