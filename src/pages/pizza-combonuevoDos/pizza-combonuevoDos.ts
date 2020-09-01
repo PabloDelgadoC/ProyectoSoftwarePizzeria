@@ -43,7 +43,8 @@ export class PizzaComboNuevoDosPage {
   bordeElegidoChoice:any
   bordesChecker: Array<boolean> = new Array<boolean>();
   bordesSelector: Array<boolean> = new Array<boolean>();
-   
+  bordeClasico: any;
+  valorBorde: any;
   
 
   pizzaUno: PizzaPromo = { ingredientes: [], nombre: null, descripcion: "Pizza combo promocional", imgUrl: null, tamano: null, costo: null, cantidad: 1 , borde: null};
@@ -290,6 +291,7 @@ export class PizzaComboNuevoDosPage {
         console.log("Tamano cambio---------------------------------------------->");
         console.log(response);
         if(response["BORDES"] != undefined){
+          let index = 0
           response["BORDES"].forEach((child :any) => {
             let borde:Borde ={
               id: child.ID,
@@ -298,9 +300,15 @@ export class PizzaComboNuevoDosPage {
               tamano : child.TAMANO,
               costo : child.COSTO
             }
-            this.bordes.push(borde);
-            this.bordesChecker.push(false)
-            this.bordesSelector.push(false)
+            if(index == 0){
+              this.bordeClasico = borde
+            } else {
+              this.valorBorde = borde.costo
+              this.bordes.push(borde);
+              this.bordesChecker.push(false)
+              this.bordesSelector.push(false)
+            }
+            index++;
           });
           //this.bordes=bordesList;
           this.bordeElegido = this.bordes[0];
@@ -339,7 +347,7 @@ export class PizzaComboNuevoDosPage {
         this.bordeElegidoChoice = this.bordeElegido
         this.bloquearAdicionBordes(this.bordesSelector)
     }else if(this.bordesChecker[index] == false){
-        this.bordeElegidoChoice = undefined
+        this.bordeElegidoChoice = this.bordeClasico
         this.bloquearAdicionBordes2(this.bordesSelector)
     }
 

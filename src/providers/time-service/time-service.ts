@@ -82,16 +82,26 @@ export class TimeServiceProvider {
     console.log("hora inicio: " + this.horaInicio)
     console.log("hora fin: " + this.horaFin)
 
+    let mensaje = this.getTime(dateB.getHours()) + ":" + this.getTime(dateB.getMinutes()) + " a " + this.getTime(dateE.getHours()) + ":" + this.getTime(dateE.getMinutes()) + " horas."
+
     if(date >= dateB && date < dateE)
       return ["OK!"]
     else
-      return ["El local se encuentra cerrado.", "El horario de atención es de: ", this.horaInicio + " a " + this.horaFin]
+      return [mensaje, "Por el momento estamos recargando", "energías para la hora de apertura 💪"]
   }
 
   reviewTime(){
     if(this.horaInicio === "" || this.horaFin === "" || this.horaInicio === undefined || this.horaFin === undefined){
       this.init()
     }
+  }
+
+  getTime(time){
+    if(time > 10)
+      return time
+    else
+      return "0" + time
+
   }
 
 }

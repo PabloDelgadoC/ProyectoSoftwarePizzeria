@@ -17,6 +17,7 @@ import { HomePage } from '../home/home';
 export class AvisoPage {
 
   toPage: any;
+  message4: string = "Italian Deli Express, te espera de"
   message1: string  = "";
   message2: string = "";
   message3: string = "";
