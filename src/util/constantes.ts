@@ -19,9 +19,10 @@ export class Constantes {
 
     //Urls
     public static API_URL = 'http://navi.pythonanywhere.com/rest/';
-    //public static API_URL = 'http://localhost:8000/rest/';
+    //public static API_URL = 'http://127.0.0.1:8000/rest/';
     //public static API_URL = 'http://192.168.100.6:8000/rest/'
     //public static API_URL2 = 'http://127.0.0.1:8000/rest/'
+    //public static API_URL2 = 'http://navi.pythonanywhere.com/rest/';
     //public static API_URL3 = 'http://192.168.100.6:8000/rest/'
     public static HORARIO_URL = Constantes.API_URL + "horario"
     public static TAMANOS_URL = Constantes.API_URL  +"tamanos/";

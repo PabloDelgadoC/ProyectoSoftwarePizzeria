@@ -403,7 +403,11 @@ export class CarritoPage {
             pizza.ingredientes.forEach(ingrediente=> {
               ingredientes.push({"id":ingrediente.id,"porcion": {"nombre":"Simple"}});
             });
-            pizzas.push({"costo":pizza.costo , "tamano": {"id":pizza.tamano.id}, "cantidad": pizza.cantidad,"masa": {"id":1},"borde":{"id":1},"ingredientes":ingredientes});
+            let borde_id = 1
+            if(pizza.borde != undefined)
+              borde_id = Number(pizza.borde.id)
+            console.log("Borde: " + borde_id)
+            pizzas.push({"costo":pizza.costo , "tamano": {"id":pizza.tamano.id}, "cantidad": pizza.cantidad,"masa": {"id":1},"borde":{"id":borde_id},"ingredientes":ingredientes});
           }
         });
         elementosCombos.push({"id":elemento.ID , "COSTO":elemento.COSTO ,"BORDE":1, "PIZZAS": pizzas})

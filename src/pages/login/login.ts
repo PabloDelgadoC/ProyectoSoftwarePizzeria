@@ -25,6 +25,7 @@ export class LoginPage {
 
   apiUrl = 'http://navi.pythonanywhere.com/rest/';
   //apiUrl = 'http://192.168.100.6:8000/rest/'
+  //apiUrl = 'http://127.0.0.1:8000/rest/'
   public alertShown: boolean = false;
   dataUsuario = { "CORREO": "", "CONTRASENA": "" };
   loginfb = { "code": "", "access_token": "" };

@@ -522,6 +522,7 @@ export class PizzaComboNuevoPage {
           });
           //this.bordes=bordesList;
           this.bordeElegido = this.bordeClasico;
+          this.bordeElegidoChoice = this.bordeClasico
           this.pizzas.forEach(pizza => {
             pizza.borde=this.bordeElegido;
           });

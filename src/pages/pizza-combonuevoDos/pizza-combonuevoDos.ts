@@ -311,7 +311,8 @@ export class PizzaComboNuevoDosPage {
             index++;
           });
           //this.bordes=bordesList;
-          this.bordeElegido = this.bordes[0];
+          this.bordeElegido = this.bordeClasico;
+          this.bordeElegidoChoice = this.bordeClasico;
           this.pizzas.forEach(pizza => {
             pizza.borde=this.bordeElegido;
           });
