@@ -7,6 +7,7 @@ import { CombinacionesPage } from '../combinaciones/combinaciones';
 import { delay } from 'rxjs/operators/delay';
 import { ComboPage } from '../combo/combo';
 import { HomePage } from '../home/home';
+import { Borde } from '../../interfaces/IBorde';
 
 
 @IonicPage()
@@ -32,6 +33,22 @@ export class PromoMarViePage {
   combo = [];
   public tamanos: any;
   public objetivo : string;
+  public bordes:any;
+  bordeElegido: any;
+  bordesElegidos:Array<any> = new Array<any>();
+  bordeElegidoChoice: any;
+  public costosString: Array<String> = new Array<String>();
+  silver:Array<Number> = new Array<Number>();
+  bordesElegidosSilver:Array<any> = new Array<any>();
+  gold:Array<Number> = new Array<Number>();
+  bordesElegidosGold:Array<any> = new Array<any>();
+  platinum:Array<Number> = new Array<Number>();
+  bordesElegidosPlatinum:Array<any> = new Array<any>();
+  costoSilver : Number;
+  costoGold : Number;
+  costoPlatinum : Number;
+  public costos:Array<Number> = new Array<Number>();
+  bordeBase: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -45,6 +62,10 @@ export class PromoMarViePage {
     public alertCtrl: AlertController) {
       console.log("vista1....",this.navCtrl.getViews());
       this.objetivo = this.navParams.get("objetivo");
+      this.loading = this.loadingCtrl.create({
+        content: 'Cargando...'
+      });
+      this.obtenerPizzasTodo();
       this.cargarTamanos();
       this.cargarCostos();
       //platform.backButton.subscribe(()
@@ -72,11 +93,9 @@ export class PromoMarViePage {
       //this.navCtrl.remove(index);
       console.log("hey 2da page....",this.navCtrl.getViews());
     },2);*/
-    this.loading = this.loadingCtrl.create({
-      content: 'Cargando...'
-    });
+    
     //loading.present();
-    this.obtenerPizzasTodo();
+    
     /*this.obtenerPizzasSilver();
     this.obtenerPizzasGolden();
     this.obtenerPizzasPlatinum();*/
@@ -137,6 +156,7 @@ cargarTamanos() {
         }
         this.tamanos = lista;
         this.tamanoElegido = this.tamanos[0];
+        this.cargarBordes(this.tamanoElegido);
       } else {
         if (response["STATUS"] != 'OK') {
           this.cerrarPagina();
@@ -162,6 +182,8 @@ cargarTamanos() {
         console.log(response);
         if (response.STATUS == "OK") {
           response.PIZZAS.forEach(pizzaProm => {
+            this.costosString.push("")
+            this.bordesElegidos.push(pizzaProm) 
             if (pizzaProm.TAMANO == 'Silver') {
               let pizzaSilver: PizzaTradicional = {
                 id: pizzaProm.ID,
@@ -178,7 +200,10 @@ cargarTamanos() {
                 checked: null,
                 seleccion: null
               }
+              pizzaSilver.borde = this.bordeBase
               this.pizzasSilver.push(pizzaSilver);
+              this.bordesElegidosSilver.push(pizzaSilver.borde)
+              this.silver.push(pizzaSilver.costo)
             }else if (pizzaProm.TAMANO == 'Gold') {
 
               //var child = response.PIZZAS[key];
@@ -197,7 +222,10 @@ cargarTamanos() {
                 checked: null,
                 seleccion: null
               }
+              pizzasGolden.borde = this.bordeBase
               this.pizzasGolden.push(pizzasGolden);
+              this.gold.push(pizzasGolden.costo)
+              this.bordesElegidosGold.push(pizzasGolden.borde)
             }else if (pizzaProm.TAMANO == 'Platinum') {
 
               //var child = response.PIZZAS[key];
@@ -216,9 +244,12 @@ cargarTamanos() {
                 checked: null,
                 seleccion: null
               }
+              pizzasPlatinum.borde = this.bordeBase
               this.pizzasPlatinum.push(pizzasPlatinum);
+              this.platinum.push(pizzasPlatinum.costo);
+              this.bordesElegidosPlatinum.push(pizzasPlatinum.borde);
             }
-          }); 
+          });
         }
         this.loading.dismiss();
       }, (error: any) => {
@@ -347,6 +378,103 @@ cargarTamanos() {
       });
     }
   }
+  cargarBordes(tamano : any){
+    let loading = this.loadingCtrl .create({
+      content: 'Cargando...'
+    });
+    loading.present();
+    this.bordes = new Array<Borde>();
+    try{
+      let token = window.localStorage.getItem("userToken");
+      this.httpRequest.get(Constantes.getTamanosBordesUrl(token,tamano.id)).then((data : any) => {
+        
+        var response = data.json();
+        console.log("Tamano cambio---------------------------------------------->");
+        console.log(response);
+        if(response["BORDES"] != undefined){
+          response["BORDES"].forEach((child :any) => {
+            let borde:Borde ={
+              id: child.ID,
+              nombre : child.NOMBRE,
+              descripcion : child.DESCRIPCION,
+              tamano : child.TAMANO,
+              costo : child.COSTO
+            }
+            this.bordes.push(borde);
+          });
+          //this.bordes=bordesList;
+          this.bordeBase = this.bordes[0];
+          this.bordeElegido = this.bordes[0];
+          this.bordesElegidos.forEach(variable => {
+              variable = this.bordes[0]
+          })
+          this.bordeElegidoChoice=this.bordeElegido;
+          let index=0
+          this.pizzasSilver.forEach(pizza => {
+            pizza.borde=this.bordeElegido;
+            this.bordesElegidosSilver[index] = this.bordeElegido
+          });
+          index=0
+          this.pizzasGolden.forEach(pizza => {
+            pizza.borde=this.bordeElegido;
+            this.bordesElegidosGold[index] = this.bordeElegido
+          });
+          index=0
+          this.pizzasPlatinum.forEach(pizza => {
+            pizza.borde=this.bordeElegido;
+            this.bordesElegidosPlatinum[index] = this.bordeElegido
+          });
+          
+          /* avisa que ya se ha terminado de cargar los bordes, para recibir cualquier pizza que se desee editar */
+          //this.events.publish('carga-completa',"bordes");
+          loading.dismiss();
+    
+        }else{
+          loading.dismiss();
+          if(response["STATUS"] != 'OK'){
+            console.log(response["DETALLE"])
+            this.mostrarMensaje(Constantes.ALGO_ANDA_MAL, Constantes.INTENTALO_NUEVAMENTE);
+          }
+        }
+        
+      }, (err)=>{
+        this.mostrarMensaje(Constantes.SIN_CONEXION, Constantes.REVISAR_CONEXION);
+      });
+    }
+    catch(err) {
+      this.mostrarMensaje(Constantes.SIN_CONEXION, Constantes.REVISAR_CONEXION);
+    }
+    
+  }
+
+  cambiarBorde(pizza, identificador, index){
+    event.cancelBubble;
+    let loading = this.loadingCtrl .create({
+      content: 'Cargando...'
+    });
+    loading.present();
+    if(identificador == 0)
+      pizza.borde=this.bordesElegidosSilver[index];
+    else if(identificador == 1)
+      pizza.borde=this.bordesElegidosGold[index];
+    else
+      pizza.borde=this.bordesElegidosPlatinum[index];
+
+    console.log(pizza.borde.nombre)
+    this.bordeElegido = pizza.borde
+    //this.costos[index] = this.redondearDecimales(Number(pizza.costo)+Number(this.bordesElegidos[index].costo),2);
+    /*
+    
+    console.log("pizzas borde choice------------------------------------------------>")
+    console.log(this.bordeElegidoChoice)
+    console.log("pizzas borde------------------------------------------------>")
+    console.log(this.bordeElegido)
+    */
+    this.bordeElegidoChoice=this.bordeElegido//actualizo el borde
+    loading.dismiss();
+    
+  }
+
   handlerCheckboxUno(pizza: PizzaTradicional,event: Event) {
     console.log("Se ha tocado la pizza",pizza.nombre);
     event.cancelBubble;
@@ -1069,6 +1197,7 @@ cargarTamanos() {
   cambiarPrecio(){
     //console.log(this.costoTamaTipo);
     console.log(this.tamanoElegido);
+    this.cargarBordes(this.tamanoElegido);
     if(this.tamanoElegido.nombreBase =="MEDIANA"){
       this.combo['COSTO'] = Number(this.costoTamaTipo[0].COSTO);
     }else if(this.tamanoElegido.nombreBase =="FAMILIAR"){
@@ -1092,4 +1221,13 @@ cargarTamanos() {
     });
     alert.present();
    }
+
+   redondearDecimales(numero, decimales) {
+    let numeroRegexp = new RegExp('\\d\\.(\\d){' + decimales + ',}');   // Expresion regular para numeros con un cierto numero de decimales o mas
+     if (numeroRegexp.test(numero)) {         // Ya que el numero tiene el numero de decimales requeridos o mas, se realiza el redondeo
+         return Number(numero.toFixed(decimales));
+     } else {
+         return Number(numero.toFixed(decimales)) === 0 ? 0 : numero;  // En valores muy bajos, se comprueba si el numero es 0 (con el redondeo deseado), si no lo es se devuelve el numero otra vez.
+     }
+ }
 }

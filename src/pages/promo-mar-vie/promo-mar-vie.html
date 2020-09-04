@@ -54,7 +54,7 @@
       </span>-->
             <ion-grid class="grid">
                 <ion-row justify-content-center align-items-center>
-                    <ion-col *ngFor="let pizza of pizzasSilver" col-6>
+                    <ion-col *ngFor="let pizza of pizzasSilver; let i = index" col-6>
                         <div [ngClass]="{'div-disabled': pizza.seleccion==true}">
                             <ion-card class="formato-card-terceary">
                                 <ion-checkbox class="checkbox-formato" [disabled]="pizza.seleccion" [(ngModel)]="pizza.checked" (ionChange)="handlerCheckboxUno(pizza,$event)"></ion-checkbox>
@@ -76,7 +76,22 @@
                                         <img [hidden]="bloquearSilver==false" class="formato-add" no-padding name="add-circle" tappable (click)="aumentarCantidadSilver(pizza)" src='assets/imgs/add.png'>
                                     </div><br>
                                     <div no-padding name style="display: flex; justify-content:center; width: 100%; margin-top: -12%; font-size: 60%">
-                                        <span *ngIf="pizza.checked==true" style=" display: flex; justify-content:center; width: 100%;">Cantidad</span></div>
+                                        <span *ngIf="pizza.checked==true" style=" display: flex; justify-content:center; width: 100%;">Cantidad</span>
+                                    </div>
+                                    <div class="formato-span-terc">
+                                        <span>Selecciona el borde</span><br>
+                                    </div>
+                                    <ion-row radio-group [(ngModel)]="bordesElegidosSilver[i]">
+                                        <ion-col *ngFor="let borde of bordes" col-12>
+                                            <div float-left no-padding style="width: 100%;" color="secondary_white">
+                                                <ion-radio style="padding-top:0%; padding-bottom: 0%; margin-left:4%;" [value]="borde" #tamanoSelect (ionSelect)="cambiarBorde(pizza,0,i)">
+                                                    {{borde.nombre}}
+                                                </ion-radio>
+                                                <ion-label *ngIf="borde.nombre!='Mozzarella'" style="margin-top: -17%; margin-bottom: 0;margin-left: 10px;" class="formato-span-terc2">{{borde.nombre}} + {{borde.costo}}</ion-label>
+                                                <ion-label *ngIf="borde.nombre=='Mozzarella'" style="margin-top: -17%; margin-bottom: 0;margin-left: 17px;" class="formato-span-terc2">{{borde.nombre}} + {{borde.costo}}</ion-label>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
                                 </ion-card-content>
                             </ion-card>
                         </div>
@@ -88,7 +103,7 @@
         <ion-card class="formato-card-secondary">
             <ion-grid class="grid">
                 <ion-row justify-content-center align-items-center>
-                    <ion-col *ngFor="let pizza of pizzasGolden" col-6>
+                    <ion-col *ngFor="let pizza of pizzasGolden; let i = index" col-6>
                         <div [ngClass]="{'div-disabled': pizza.seleccion==true}">
                             <ion-card class="formato-card-terceary">
                                 <ion-checkbox class="checkbox-formato" [disabled]="pizza.seleccion" [(ngModel)]="pizza.checked" (click)="handlerCheckboxDos(pizza,$event)"></ion-checkbox>
@@ -110,6 +125,20 @@
                                     </div><br>
                                     <div no-padding name style="display: flex; justify-content:center; width: 100%; margin-top: -12%; font-size: 60%">
                                         <span *ngIf="pizza.checked==true" style=" display: flex; justify-content:center; width: 100%;">Cantidad</span></div>
+                                        <div class="formato-span-terc">
+                                            <span>Selecciona el borde</span><br>
+                                        </div>
+                                        <ion-row radio-group [(ngModel)]="bordesElegidosGold[i]">
+                                            <ion-col *ngFor="let borde of bordes" col-12>
+                                                <div float-left no-padding style="width: 100%;" color="secondary_white">
+                                                    <ion-radio style="padding-top:0%; padding-bottom: 0%; margin-left:4%;" [value]="borde" #tamanoSelect (ionSelect)="cambiarBorde(pizza,1,i)">
+                                                        {{borde.nombre}}
+                                                    </ion-radio>
+                                                    <ion-label *ngIf="borde.nombre!='Mozzarella'" style="margin-top: -17%; margin-bottom: 0;margin-left: 10px;" class="formato-span-terc2">{{borde.nombre}} + {{borde.costo}}</ion-label>
+                                                    <ion-label *ngIf="borde.nombre=='Mozzarella'" style="margin-top: -17%; margin-bottom: 0;margin-left: 17px;" class="formato-span-terc2">{{borde.nombre}} + {{borde.costo}}</ion-label>
+                                                </div>
+                                            </ion-col>
+                                        </ion-row>
                                 </ion-card-content>
                             </ion-card>
                         </div>
@@ -120,7 +149,7 @@
         <ion-card class="formato-card-secondary">
             <ion-grid>
                 <ion-row justify-content-center align-items-center ng-if="$even">
-                    <ion-col *ngFor="let pizza of pizzasPlatinum" col-6>
+                    <ion-col *ngFor="let pizza of pizzasPlatinum; let i = index" col-6>
                         <div [ngClass]="{'div-disabled': pizza.seleccion==true}">
                             <ion-card class="formato-card-terceary">
                                 <ion-checkbox class="checkbox-formato" [disabled]="pizza.seleccion" [(ngModel)]="pizza.checked" (click)="handlerCheckboxTres(pizza,$event)"></ion-checkbox>
@@ -142,7 +171,22 @@
                                         <img *ngIf="bloquearPlatinum==true" class="formato-add" no-padding name="add-circle" tappable (click)="aumentarCantidadPlatinum(pizza)" src='assets/imgs/add.png'>
                                     </div><br>
                                     <div no-padding name style="display: flex; justify-content:center; width: 100%; margin-top: -12%; font-size: 60%">
-                                        <span *ngIf="pizza.checked==true" style=" display: flex; justify-content:center; width: 100%;">Cantidad</span></div>
+                                        <span *ngIf="pizza.checked==true" style=" display: flex; justify-content:center; width: 100%;">Cantidad</span>
+                                    </div>
+                                    <div class="formato-span-terc">
+                                        <span>Selecciona el borde</span><br>
+                                    </div>
+                                    <ion-row radio-group [(ngModel)]="bordesElegidosPlatinum[i]">
+                                        <ion-col *ngFor="let borde of bordes" col-12>
+                                            <div float-left no-padding style="width: 100%;" color="secondary_white">
+                                                <ion-radio style="padding-top:0%; padding-bottom: 0%; margin-left:4%;" [value]="borde" #tamanoSelect (ionSelect)="cambiarBorde(pizza,2,i)">
+                                                    {{borde.nombre}}
+                                                </ion-radio>
+                                                <ion-label *ngIf="borde.nombre!='Mozzarella'" style="margin-top: -17%; margin-bottom: 0;margin-left: 10px;" class="formato-span-terc2">{{borde.nombre}} + {{borde.costo}}</ion-label>
+                                                <ion-label *ngIf="borde.nombre=='Mozzarella'" style="margin-top: -17%; margin-bottom: 0;margin-left: 17px;" class="formato-span-terc2">{{borde.nombre}} + {{borde.costo}}</ion-label>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
                                 </ion-card-content>
                             </ion-card>
                         </div>

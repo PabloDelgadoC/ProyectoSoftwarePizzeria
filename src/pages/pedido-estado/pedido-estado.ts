@@ -46,7 +46,10 @@ export class PedidoEstadoPage {
         if(response["STATUS"] != undefined  ||  response["STATUS"] != "OK" ){
           let paquete = response.PAQUETE;
           paquete.ESTADO.forEach(element => {
-              this.estados.push({"nombre":element.NOMBRE , "descripcion": element.DESCRIPCION, "hora":element.HORA})
+              if(element.ESTADO == "On"){
+                this.estados.push({"nombre":element.NOMBRE , "descripcion": element.DESCRIPCION, "hora":element.HORA})
+                console.log("XASDAD")
+              }      
           });  
           console.log(this.estados)         
         }

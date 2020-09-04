@@ -321,7 +321,7 @@ export class HomePage implements OnInit{
 
   favoritas(event: Event){
     event.preventDefault;
-    /*
+    
     let arrayTemp = this.horarioProvider.checkTime()
     if(arrayTemp[0] != "OK!"){
       //this.navCtrl.pop();
@@ -334,7 +334,7 @@ export class HomePage implements OnInit{
       modal.present();
       
     }else
-    */
+    
       this.navCtrl.push(FavoritasPage);
   }
 
@@ -342,6 +342,7 @@ export class HomePage implements OnInit{
     event.preventDefault;
     //this.mostrarMensaje2("ATENCIÓN!!" ,"PRUEBA" , "ok")
     //aca se agrega como componente???--- debe agregarse como pagina
+    
     let arrayTemp = this.horarioProvider.checkTime()
     if(arrayTemp[0] != "OK!"){
       //this.navCtrl.pop();
@@ -353,6 +354,7 @@ export class HomePage implements OnInit{
       })
       modal.present();
     }else
+    
     this.navCtrl.push(ComboPage)
     //this.navCtrl.setRoot(ComboPage)
     //console.log("vistassss Afterr......",this.navCtrl.getViews());

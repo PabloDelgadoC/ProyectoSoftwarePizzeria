@@ -87,7 +87,7 @@ export class CarritoPage {
     if(this.formaEntrega!='0'){
       this.validations_form = this.formBuilder.group({
         telefono:new FormControl('', Validators.compose([
-          Validators.minLength(10),
+          Validators.minLength(7),
           Validators.required,
           Validators.pattern('^[0-9]*$')
         ])),
@@ -101,7 +101,7 @@ export class CarritoPage {
     }else{
       this.validations_form = this.formBuilder.group({
         telefono:new FormControl('', Validators.compose([
-          Validators.minLength(10),
+          Validators.minLength(7),
           Validators.required,
           Validators.pattern('^[0-9]*$')
         ])),
@@ -397,7 +397,11 @@ export class CarritoPage {
             }else if(pizza.masa=="EXTRA GRANDE"){
               tamanoid=3;
             }
-            pizzas.push({"id":pizza.id,"tamano":tamanoid,"tipo":tipoid,"borde":{"id":1}});
+            let borde_id = 1
+            if(pizza.borde != undefined)
+              borde_id = Number(pizza.borde.id)
+            console.log("Borde: " + borde_id)
+            pizzas.push({"id":pizza.id,"tamano":tamanoid,"tipo":tipoid,"borde":{"id":borde_id}});
           }else{
             let ingredientes=[];
             pizza.ingredientes.forEach(ingrediente=> {

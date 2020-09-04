@@ -43,6 +43,7 @@ export class CombinacionesPage {
   cont=3;
   costoTotal : Number;
   bloquearBoton = false;
+  costoborde:any;
   public currentDate: Date;
   public weekdays = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
   constructor(public navCtrl: NavController, 
@@ -78,6 +79,7 @@ export class CombinacionesPage {
           this.tradicionalesPromo  = new Array<Pizza>();
           this.promocionales  = new Array<PizzaPromo>();
           this.combos = [];
+          this.costoborde = 0;
           let page=this.navParams.get("tipo");
           if(page){
             let modal = this.modalCtrl.create(tradicionalPopUpPage, {});
@@ -134,11 +136,6 @@ export class CombinacionesPage {
             });              
        }
          if( combo != null ){
-            combo['PIZZAS'].forEach(pizza =>{
-              if(pizza.borde != null)
-                combo['COSTO'] = combo['COSTO'] + (pizza.borde.costo/1)
-            })
-            combo['COSTO'] = this.redondearDecimales(combo['COSTO'], 2)
             this.combos.push(combo)
             console.log("Entra a combos--------------------------------------------------->");
             console.log(this.combos)
@@ -912,7 +909,14 @@ export class CombinacionesPage {
      //Calcular total de combos
     if (this.combos.length != 0) {
       this.combos.forEach((combo) => {
+        let bordeCost = 0
         totalCombos += Number(combo.COSTO) * Number(combo.CANTIDAD)
+        combo['PIZZAS'].forEach(pizza =>{
+          if(pizza.borde != null)
+            bordeCost += (pizza.borde.costo/1)
+        })
+        bordeCost = this.redondearDecimales(bordeCost, 2)
+        totalCombos += bordeCost
       });
     } else {
       totalCombos = 0;

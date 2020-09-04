@@ -80,6 +80,37 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div no-padding class="formato-span-secondary2">
+            <span> Adicionar por $ {{valorBorde}}: </span>
+        </div>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col *ngFor="let borde of bordes; let i = index" col-4>
+                    <div [ngClass]="{'div-disabled': bordesSelector[i]==true}">
+                        <ion-card class="formato-card-terceary">
+                            <ion-checkbox float-right style="zoom: 1.2; padding-top: 5%; padding-right: 4%; padding-bottom: 3%; " item-right [(ngModel)]="bordesChecker[i]" (ionChange)="handlerCheckbox2(borde, i)">
+                            </ion-checkbox>
+                            <!--assets/imgs/platinum.png [(ngModel)]="borde"-->
+                            <img class="imagen-pizza-tamano" *ngIf="borde.nombre!='Mozzarella' && borde.nombre!='Cheddar'" src="assets/imgs/clasico.png" />
+                            <img class="imagen-pizza-tamano" *ngIf="borde.nombre=='Mozzarella'" src="assets/imgs/mozarrella.jpg" />
+                            <img class="imagen-pizza-tamano" *ngIf="borde.nombre=='Cheddar'" src="assets/imgs/cheddar.jpg" />
+                            <ion-card-content>
+                                <ion-card-title class="formato-fuente">
+                                    {{borde.nombre}}
+                                </ion-card-title>
+                            </ion-card-content>
+                        </ion-card>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </ion-card>
 </ion-content>
 

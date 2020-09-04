@@ -184,7 +184,7 @@ export class DetallePromocionalPage {
       }
     }
     if(this.navParams.get("id") =='30'){
-      if(this.weekdays[this.currentDate.getDay()]=="miercoles" ){
+      if(this.weekdays[this.currentDate.getDay()]=="miercoles"){
         this.abrirVentanaUno(nombre, costo, combo);
         this.viewCtrl.dismiss();
       }else{
@@ -194,7 +194,7 @@ export class DetallePromocionalPage {
       }
     } 
     else if(this.navParams.get("id") =='31') {
-      if(this.weekdays[this.currentDate.getDay()]=="jueves" ){
+      if(this.weekdays[this.currentDate.getDay()]=="jueves"){
         this.abrirVentanaUno(nombre, costo, combo);
         this.viewCtrl.dismiss();
       }else{
@@ -203,7 +203,7 @@ export class DetallePromocionalPage {
       }
     }
     else if(this.navParams.get("id") =='32') {
-      if(this.weekdays[this.currentDate.getDay()]=="sabado" ){
+      if(this.weekdays[this.currentDate.getDay()]=="sabado"){
         this.abrirVentanaUno(nombre, costo, combo);
         this.viewCtrl.dismiss();
       }else{
@@ -213,7 +213,7 @@ export class DetallePromocionalPage {
       }   
     }
     else if(this.navParams.get("id") =='33') {
-      if(this.weekdays[this.currentDate.getDay()]=="domingo" ){
+      if(this.weekdays[this.currentDate.getDay()]=="domingo"){
         this.abrirVentanaUno(nombre, costo, combo);
         this.viewCtrl.dismiss();
       }else{

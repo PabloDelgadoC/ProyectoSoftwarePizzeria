@@ -251,7 +251,7 @@ export class LoginPage {
     datosregistro.APELLIDOS = apellidos;
     datosregistro.CONTRASENA = userId;
     datosregistro.NOMBRES = nombres;
-    datosregistro.TELEFONO = "99999999";
+    datosregistro.TELEFONO = "9999999999";
     datosregistro.CEDULA = "";
     //if(imageUrl !== "")
     datosregistro.IMAGEN =  "";//imageUrl;
