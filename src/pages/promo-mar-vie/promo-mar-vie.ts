@@ -453,12 +453,23 @@ cargarTamanos() {
       content: 'Cargando...'
     });
     loading.present();
-    if(identificador == 0)
+    if(identificador == 0){
       pizza.borde=this.bordesElegidosSilver[index];
-    else if(identificador == 1)
+      let updateItem = this.pizzaSilverLo.find(this.findIndexToUpdate, pizza.id);
+      if (updateItem !== undefined)
+          updateItem.borde = this.bordesElegidosSilver[index];
+
+    }else if(identificador == 1){
       pizza.borde=this.bordesElegidosGold[index];
-    else
+      let updateItem = this.pizzaGoldLo.find(this.findIndexToUpdate, pizza.id);
+      if (updateItem !== undefined)
+          updateItem.borde = this.bordesElegidosGold[index];
+    }else{
       pizza.borde=this.bordesElegidosPlatinum[index];
+      let updateItem = this.pizzaPlatinumLo.find(this.findIndexToUpdate, pizza.id);
+      if (updateItem !== undefined)
+          updateItem.borde = this.bordesElegidosPlatinum[index];
+    }
 
     console.log(pizza.borde.nombre)
     this.bordeElegido = pizza.borde
